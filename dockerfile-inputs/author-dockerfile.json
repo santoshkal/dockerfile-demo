@@ -40,10 +40,16 @@
         },
         {
           "run": [
-            "dotnet restore --no-cache ./Application/Application.csproj",
-            "dotnet build --configuration Release -o out",
-            "dotnet publish -c Release --use-current-runtime --self-contained false -o out"
+            "dotnet restore --no-cache ./Application/Application.csproj"
           ]
+        },
+        {
+          "run":
+          ["dotnet build --configuration Release -o out"]
+        },
+        {
+          "run":
+          ["dotnet publish -c Release --use-current-runtime --self-contained false -o out"]
         }
       ]
     },

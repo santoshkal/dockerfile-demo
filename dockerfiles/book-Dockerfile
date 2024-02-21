@@ -3,7 +3,7 @@
   FROM cgr.dev/chainguard/wolfi-base AS build
   ENV APP_HOME=/app
   WORKDIR $APP_HOME
-  RUN apk update && apk add dotnet-7-sdk
+  RUN --no-cache apk update && apk add dotnet-7-sdk
   COPY . .
   RUN dotnet restore --no-cache ./Application/Application.csproj \
       && dotnet build --configuration Release -o out \
@@ -11,10 +11,11 @@
 
 # STAGE 1
   FROM cgr.dev/chainguard/wolfi-base As Final
-  RUN apk update && apk add dotnet-7-sdk \
+  RUN --no-cache apk update && apk add dotnet-7-sdk \
       && apk add dotnet-7-runtime
   ENV APP_HOME=/app
   WORKDIR $APP_HOME
   COPY --from=build /app/out/ .
+  USER nonroot
   EXPOSE 80
   ENTRYPOINT ["dotnet", "./BookService.dll"]
