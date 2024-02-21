@@ -30,7 +30,7 @@
         },
         {
           "run": [
-            "apk update && apk add dotnet-7-sdk"
+            "--no-cache apk update && apk add dotnet-7-sdk"
           ]
         },
         {
@@ -57,7 +57,7 @@
         },
         {
           "run": [
-            "apk update && apk add dotnet-7-sdk",
+            "--no-cache apk update && apk add dotnet-7-sdk",
             "apk add dotnet-7-runtime"
           ]
         },
@@ -75,6 +75,10 @@
           "copy": [
             "--from=build /app/out/ ."
           ]
+        },
+        {
+          "user":
+          ["nonroot"]
         },
         {
           "expose": [
