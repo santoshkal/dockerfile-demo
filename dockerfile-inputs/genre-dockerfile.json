@@ -1,0 +1,76 @@
+{
+  "dockerfile": [
+    {
+      "stage": 0,
+      "instructions": [
+        {
+          "from": [
+            "cgr.dev/chainguard/wolfi-base AS build"
+          ]
+        },
+        {
+          "env": [
+            "APP_HOME=/app"
+          ]
+        },
+        {
+          "workdir": [
+            "$APP_HOME"
+          ]
+        },
+        {
+          "run": [
+            "apk update && apk add dotnet-7-sdk"
+          ]
+        },
+        {
+          "copy": [
+            ". ."
+          ]
+        },
+        {
+          "run": [
+            "dotnet restore --no-cache ./Application/Application.csproj",
+            "dotnet build --configuration Release -o out",
+            "dotnet publish -c Release --use-current-runtime --self-contained false -o out"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 1,
+      "instructions": [
+        {
+          "from": [
+            "cgr.dev/chainguard/wolfi-base As Final"
+          ]
+        },
+        {
+          "env": [
+            "APP_HOME=/app"
+          ]
+        },
+        {
+          "workdir": [
+            "$APP_HOME"
+          ]
+        },
+        {
+          "copy": [
+            "--from=build /app/out/ ."
+          ]
+        },
+        {
+          "expose": [
+            "80"
+          ]
+        },
+        {
+          "entrypoint": [
+            "dotnet", "./GenreService.dll"
+          ]
+        }
+      ]
+    }
+  ]
+}
