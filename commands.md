@@ -46,3 +46,6 @@
 --inputpolicy https://raw.githubusercontent.com/intelops/genval-security-policies/patch-1/default-policies/rego/inputfile_policies.rego \
 --outputpolicy https://raw.githubusercontent.com/intelops/genval-security-policies/patch-1/default-policies/rego/dockerfile_policies.rego
 ```
+
+# Validating Dockerfiles induvisually
+`./genval --mode dockerval --reqinput ./dockerfiles/author-Dockerfile --outputpolicy https://raw.githubusercontent.com/intelops/genval-security-policies/patch-1/default-policies/rego/dockerfile_policies.rego`
