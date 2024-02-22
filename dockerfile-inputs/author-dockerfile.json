@@ -30,7 +30,7 @@
         },
         {
           "run": [
-            "--no-cache apk update && apk add dotnet-7-sdk"
+            "apk --no-cache update && apk add dotnet-7-sdk"
           ]
         },
         {
@@ -63,7 +63,7 @@
         },
         {
           "run": [
-            "--no-cache apk update && apk add dotnet-7-sdk",
+            "apk --no-cache update && apk add dotnet-7-sdk",
             "apk add dotnet-7-runtime"
           ]
         },
